@@ -70,31 +70,10 @@ architecture Behavioral of top_level is
       sw : in std_logic_vector (15 downto 0);
       led : out std_logic_vector (15 downto 0);
       seg : out std_logic_vector (15 downto 0);
-      clk : in std_logic;
-      COinc : in std_logic;
-      RILoad : in std_logic;
-      B2R7seg : in std_logic;
-      RI2B : in std_logic;
-      B2CO : in std_logic
+      clk : in std_logic
     );
   end component;
 
-  component proc_fsm is
-    port (
-      clk : in std_logic;
-
-      COinc : out std_logic;
-      RILoad : out std_logic;
-      B2R7seg : out std_logic;
-      RI2B : out std_logic;
-      B2CO : out std_logic
-    );
-  end component;
-  signal COinc : std_logic;
-  signal RILoad : std_logic;
-  signal B2R7seg : std_logic;
-  signal RI2B : std_logic;
-  signal B2CO : std_logic;
   signal seg_val : std_logic_vector (15 downto 0);
 
 begin
@@ -113,22 +92,7 @@ begin
     sw => sw,
     led => led,
     seg => seg_val,
-    clk => clk,
-    COinc => COinc,
-    RILoad => RILoad,
-    B2R7seg => B2R7seg,
-    RI2B => RI2B,
-    B2CO => B2CO
-  );
-
-  proc_fsm_inst : proc_fsm
-  port map(
-    clk => clk,
-    COinc => COinc,
-    RILoad => RILoad,
-    B2R7seg => B2R7seg,
-    RI2B => RI2B,
-    B2CO => B2CO
+    clk => clk
   );
 
   all_7seg_fsm_inst : all_7seg_fsm

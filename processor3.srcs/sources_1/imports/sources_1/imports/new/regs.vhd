@@ -35,13 +35,7 @@ entity regs is
     sw : in std_logic_vector (15 downto 0);
     led : out std_logic_vector (15 downto 0);
     seg : out std_logic_vector (15 downto 0);
-    clk : in std_logic;
-
-    COinc : in std_logic;
-    RILoad : in std_logic;
-    B2R7seg : in std_logic;
-    RI2B : in std_logic;
-    B2CO : in std_logic
+    clk : in std_logic
   );
 end regs;
 
@@ -69,11 +63,53 @@ architecture Behavioral of regs is
 
   signal COd : std_logic_vector (15 downto 0);
   signal COInside : std_logic_vector (15 downto 0);
+
+  component proc_fsm is
+    port (
+      clk : in std_logic;
+
+      COinc : out std_logic;
+      RILoad : out std_logic;
+
+      instr : in std_logic_vector(15 downto 0);
+      src : out std_logic_vector(3 downto 0);
+      dest : out std_logic_vector(3 downto 0);
+      op : out std_logic_vector(3 downto 0)
+    );
+  end component;
+
+  signal COinc : std_logic;
+  signal RILoad : std_logic;
+  signal R2B : std_logic_vector(15 downto 0);
+  signal B2R : std_logic_vector(15 downto 0);
+  signal srcInst : std_logic_vector(3 downto 0);
+  signal dstInst : std_logic_vector(3 downto 0);
+
+  component inst2regdecoder is
+    port (
+      instReg : in std_logic_vector(3 downto 0);
+      busReg : out std_logic_vector(15 downto 0);
+      E : in std_logic
+    );
+  end component;
+
+  component ALU is
+    port (
+      a : in std_logic_vector(15 downto 0);
+      b : in std_logic_vector(15 downto 0);
+      op : in std_logic_vector(3 downto 0);
+      dst : out std_logic_vector(15 downto 0)
+    );
+  end component;
+  signal destd : std_logic_vector (15 downto 0);
+  signal src1q : std_logic_vector (15 downto 0);
+  signal src2q : std_logic_vector (15 downto 0);
+  signal op : std_logic_vector(3 downto 0);
 begin
   R1 : reg
   port map(
-    B2R => '0',
-    R2B => '0',
+    B2R => B2R(1),
+    R2B => R2B(1),
     clk => clk,
     d => dbus,
     q => dbus,
@@ -81,8 +117,8 @@ begin
   );
   R2 : reg
   port map(
-    B2R => '0',
-    R2B => '0',
+    B2R => B2R(2),
+    R2B => R2B(2),
     clk => clk,
     d => dbus,
     q => dbus,
@@ -90,8 +126,8 @@ begin
   );
   R3 : reg
   port map(
-    B2R => '0',
-    R2B => '0',
+    B2R => B2R(3),
+    R2B => R2B(3),
     clk => clk,
     d => dbus,
     q => dbus,
@@ -99,8 +135,8 @@ begin
   );
   R4 : reg
   port map(
-    B2R => '0',
-    R2B => '0',
+    B2R => B2R(4),
+    R2B => R2B(4),
     clk => clk,
     d => dbus,
     q => dbus,
@@ -108,35 +144,35 @@ begin
   );
   R5 : reg
   port map(
-    B2R => '0',
-    R2B => '0',
+    B2R => B2R(5),
+    R2B => R2B(5),
     clk => clk,
     d => dbus,
-    q => dbus,
-    q_inside => open
-  );
-  Rin : reg
-  port map(
-    B2R => '1',
-    R2B => '0', -- temporarily set to 1
-    clk => clk,
-    d => sw,
     q => dbus,
     q_inside => open
   );
   Rout1 : reg
   port map(
-    B2R => '1', -- temporarily set to 1
-    R2B => '0',
+    B2R => B2R(6),
+    R2B => R2B(6),
     clk => clk,
     d => dbus,
     q => dbus,
     q_inside => led
   );
+  Rin : reg
+  port map(
+    B2R => '1',
+    R2B => R2B(7),
+    clk => clk,
+    d => sw,
+    q => dbus,
+    q_inside => open
+  );
   Rout2 : reg
   port map(
-    B2R => B2R7seg,
-    R2B => '0',
+    B2R => B2R(8),
+    R2B => R2B(8),
     clk => clk,
     d => dbus,
     q => dbus,
@@ -144,35 +180,35 @@ begin
   );
   Rsrc1 : reg
   port map(
-    B2R => '0',
-    R2B => '0',
+    B2R => B2R(9),
+    R2B => R2B(9),
     clk => clk,
     d => dbus,
     q => dbus,
-    q_inside => open
+    q_inside => src1q
   );
   Rsrc2 : reg
   port map(
-    B2R => '0',
-    R2B => '0',
+    B2R => B2R(10),
+    R2B => R2B(10),
     clk => clk,
     d => dbus,
     q => dbus,
-    q_inside => open
+    q_inside => src2q
   );
   Rdest : reg
   port map(
-    B2R => '0',
-    R2B => '0',
+    B2R => B2R(11),
+    R2B => R2B(11),
     clk => clk,
-    d => dbus,
+    d => destd,
     q => dbus,
     q_inside => open
   );
   RAM : reg
   port map(
-    B2R => '0',
-    R2B => '0',
+    B2R => B2R(12),
+    R2B => R2B(12),
     clk => clk,
     d => dbus,
     q => dbus,
@@ -180,8 +216,8 @@ begin
   );
   RDM : reg
   port map(
-    B2R => '0',
-    R2B => '0',
+    B2R => B2R(13),
+    R2B => R2B(13),
     clk => clk,
     d => dbus,
     q => dbus,
@@ -190,25 +226,57 @@ begin
   CO : reg
   port map(
     B2R => '1',
-    R2B => '0',
+    R2B => R2B(14),
     clk => clk,
     d => COd,
     q => dbus,
     q_inside => COInside
   );
 
-  COd <= dbus when B2CO = '1' else
+  COd <= dbus when B2R(14) = '1' else
     (COInside + x"0001") when COinc = '1' else
     COInside;
 
   RI : reg
   port map(
     B2R => RILoad,
-    R2B => RI2B,
+    R2B => R2B(15),
     clk => clk,
     d => instruction,
     q => dbus,
     q_inside => open
+  );
+
+  proc_fsm_inst : proc_fsm
+  port map(
+    clk => clk,
+    COinc => COinc,
+    RILoad => RILoad,
+    instr => instruction,
+    src => srcInst,
+    dest => dstInst,
+    op => op
+  );
+
+  ALU_inst : ALU
+  port map(
+    a => src1q,
+    b => src2q,
+    op => op,
+    dst => destd
+  );
+
+  inst2regdecoder_src : inst2regdecoder
+  port map(
+    instReg => srcInst,
+    busReg => R2B,
+    E => '1'
+  );
+  inst2regdecoder_dst : inst2regdecoder
+  port map(
+    instReg => dstInst,
+    busReg => B2R,
+    E => '1'
   );
 
   inst_mem_inst : inst_mem

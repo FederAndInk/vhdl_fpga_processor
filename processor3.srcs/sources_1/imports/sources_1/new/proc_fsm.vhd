@@ -35,21 +35,25 @@ entity proc_fsm is
 
     COinc : out std_logic;
     RILoad : out std_logic;
-    B2R7seg : out std_logic;
-    RI2B : out std_logic;
-    B2CO : out std_logic
+
+    instr : in std_logic_vector(15 downto 0);
+    src : out std_logic_vector(3 downto 0);
+    dest : out std_logic_vector(3 downto 0);
+    op : out std_logic_vector(3 downto 0)
   );
 end proc_fsm;
 
 architecture Behavioral of proc_fsm is
-  type state_t is (st_load, st_transfer, st_transfer2);
+  type state_t is (st_load);
   signal state, next_state : state_t := st_load; -- initialize the fucking state or it doesn't work on the board
 
   signal COinc_res : std_logic;
   signal RILoad_res : std_logic;
   signal B2R7seg_res : std_logic;
   signal RI2B_res : std_logic;
-  signal B2CO_res : std_logic;
+  signal src_res : std_logic_vector(3 downto 0);
+  signal dest_res : std_logic_vector(3 downto 0);
+  signal op_res : std_logic_vector(3 downto 0);
 begin
   SYNC_PROC : process (clk)
   begin
@@ -57,32 +61,34 @@ begin
       state <= next_state;
       COinc <= COinc_res;
       RILoad <= RILoad_res;
-      B2R7seg <= B2R7seg_res;
-      RI2B <= RI2B_res;
-      B2CO <= B2CO_res;
+      src <= src_res;
+      dest <= dest_res;
+      op <= op_res;
     end if;
   end process;
 
   --MOORE State-Machine - Outputs based on state only
-  OUTPUT_DECODE : process (state)
+  OUTPUT_DECODE : process (state, instr)
   begin
     COinc_res <= '0';
     RILoad_res <= '0';
-    B2R7seg_res <= '0';
-    RI2B_res <= '0';
-    B2CO_res <= '0';
+    op_res <= x"0";
+    src_res <= x"0";
+    dest_res <= x"0";
     case(state) is
       when st_load =>
       COinc_res <= '1';
       RILoad_res <= '1';
-      when st_transfer =>
-      B2R7seg_res <= '1';
-      RI2B_res <= '1';
-      COinc_res <= '1';
-      RILoad_res <= '1';
-      when st_transfer2 =>
-      B2R7seg_res <= '1';
-      RI2B_res <= '1';
+      case(instr(15 downto 12)) is
+        when x"0" => -- move
+        src_res <= instr(7 downto 4);
+        dest_res <= instr(3 downto 0);
+        when x"1" => -- alu
+        op_res <= instr(11 downto 8);
+        src_res <= x"0";
+        dest_res <= x"B";
+        when others =>
+      end case;
     end case;
   end process;
 
@@ -92,11 +98,7 @@ begin
     next_state <= state; --default is to stay in current state
     case(state) is
       when st_load =>
-      next_state <= st_transfer;
-      when st_transfer =>
-      next_state <= st_transfer2;
-      when st_transfer2 =>
-      next_state <= st_transfer2;
+      next_state <= st_load;
     end case;
   end process;
 end Behavioral;

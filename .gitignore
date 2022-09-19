@@ -1,3 +1,4 @@
 *
 !processor3.srcs
+!processor3.srcs/**
 !.gitignore
