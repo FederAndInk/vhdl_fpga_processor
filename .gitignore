@@ -2,3 +2,6 @@
 !processor3.srcs
 !processor3.srcs/**
 !.gitignore
+!processor3.xpr
+!test_behav.wcfg
+!asm.sed
