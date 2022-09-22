@@ -33,7 +33,8 @@ entity test is
   port (
     led : out std_logic_vector (15 downto 0);
     an : out std_logic_vector (3 downto 0);
-    seg : out std_logic_vector (6 downto 0)
+    seg : out std_logic_vector (6 downto 0);
+    btn : in std_logic_vector (4 downto 0)
   );
 end test;
 
@@ -45,14 +46,12 @@ architecture Behavioral of test is
       dp : out std_logic;
       an : out std_logic_vector (3 downto 0);
       seg : out std_logic_vector (6 downto 0);
-      -- btn : in std_logic_vector (4 downto 0);
+      btn : in std_logic_vector (4 downto 0);
       clk : in std_logic
     );
   end component;
   signal clk : std_logic := '0';
   constant half_period : time := 50ns;
-
-  signal btn : std_logic_vector(3 downto 0) := "0000";
 
 begin
   clk <= not clk after half_period;
@@ -62,7 +61,7 @@ begin
     dp => open,
     an => an,
     seg => seg,
-    -- btn => "00000",
+    btn => btn,
     clk => clk
   );
 

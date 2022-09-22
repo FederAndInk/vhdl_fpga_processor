@@ -36,7 +36,7 @@ entity top_level is
     dp : out std_logic;
     an : out std_logic_vector (3 downto 0);
     seg : out std_logic_vector (6 downto 0);
-    -- btn : in std_logic_vector (4 downto 0);
+    btn : in std_logic_vector (4 downto 0);
     clk : in std_logic
   );
 end top_level;
@@ -55,6 +55,16 @@ architecture Behavioral of top_level is
   signal E762 : std_logic;
   signal clk762 : std_logic;
 
+  component btn_pulse
+    port (
+      clk : in std_logic;
+      inp : in std_logic;
+      E : in std_logic;
+      outp : out std_logic
+    );
+  end component;
+  signal btn_clean : std_logic_vector (4 downto 0);
+
   component all_7seg_fsm is
     port (
       clk : in std_logic;
@@ -70,6 +80,7 @@ architecture Behavioral of top_level is
       sw : in std_logic_vector (15 downto 0);
       led : out std_logic_vector (15 downto 0);
       seg : out std_logic_vector (15 downto 0);
+      btn_continue : in std_logic;
       clk : in std_logic
     );
   end component;
@@ -87,11 +98,22 @@ begin
     -- clk762 => clk762
   );
 
+  btn_cleaner : for I in 0 to 4 generate
+    btn_pulse_inst : btn_pulse
+    port map(
+      clk => clk190,
+      inp => btn(I),
+      E => E190,
+      outp => btn_clean(I)
+    );
+  end generate; -- btn_cleaner
+
   regs_inst : regs
   port map(
     sw => sw,
     led => led,
     seg => seg_val,
+    btn_continue => btn(4),
     clk => clk
   );
 

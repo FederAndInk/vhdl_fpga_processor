@@ -32,6 +32,7 @@ use IEEE.STD_LOGIC_1164.all;
 entity proc_fsm is
   port (
     clk : in std_logic;
+    continue : in std_logic;
 
     COinc : out std_logic;
     RILoad : out std_logic;
@@ -44,7 +45,7 @@ entity proc_fsm is
 end proc_fsm;
 
 architecture Behavioral of proc_fsm is
-  type state_t is (st_load);
+  type state_t is (st_load, st_pause);
   signal state, next_state : state_t := st_load; -- initialize the fucking state or it doesn't work on the board
 
   signal COinc_res : std_logic;
@@ -89,16 +90,24 @@ begin
         dest_res <= x"B";
         when others =>
       end case;
+      when others =>
     end case;
   end process;
 
-  NEXT_STATE_DECODE : process (state)
+  NEXT_STATE_DECODE : process (state, instr, continue)
   begin
     --declare default state for next_state to avoid latches
     next_state <= state; --default is to stay in current state
     case(state) is
       when st_load =>
       next_state <= st_load;
+      when others =>
     end case;
+    if instr(15 downto 12) = x"F" then -- pause
+      next_state <= st_pause;
+    end if;
+    if continue = '1' then
+      next_state <= st_load;
+    end if;
   end process;
 end Behavioral;

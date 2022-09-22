@@ -35,6 +35,7 @@ entity regs is
     sw : in std_logic_vector (15 downto 0);
     led : out std_logic_vector (15 downto 0);
     seg : out std_logic_vector (15 downto 0);
+    btn_continue : in std_logic;
     clk : in std_logic
   );
 end regs;
@@ -67,6 +68,7 @@ architecture Behavioral of regs is
   component proc_fsm is
     port (
       clk : in std_logic;
+      continue : in std_logic;
 
       COinc : out std_logic;
       RILoad : out std_logic;
@@ -250,6 +252,7 @@ begin
   proc_fsm_inst : proc_fsm
   port map(
     clk => clk,
+    continue => btn_continue,
     COinc => COinc,
     RILoad => RILoad,
     instr => instruction,
