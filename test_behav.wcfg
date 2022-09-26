@@ -10,15 +10,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="29,999,317.500 ns"></ZoomStartTime>
-      <ZoomEndTime time="30,000,136.501 ns"></ZoomEndTime>
-      <Cursor1Time time="30,000,000.000 ns"></Cursor1Time>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,646.001 ns"></ZoomEndTime>
+      <Cursor1Time time="676.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="146"></NameColumnWidth>
+      <NameColumnWidth column_width="142"></NameColumnWidth>
       <ValueColumnWidth column_width="60"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="33" />
+   <WVObjectSize size="39" />
    <wvobject type="array" fp_name="/test/led">
       <obj_property name="ElementShortName">led[15:0]</obj_property>
       <obj_property name="ObjectShortName">led[15:0]</obj_property>
@@ -34,6 +34,20 @@
    <wvobject type="array" fp_name="/test/seg">
       <obj_property name="ElementShortName">seg[6:0]</obj_property>
       <obj_property name="ObjectShortName">seg[6:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/Rout2/q_inside">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
+      <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
+      <obj_property name="label">rout2_inside</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/Rout2/B2R">
+      <obj_property name="ElementShortName">B2R</obj_property>
+      <obj_property name="ObjectShortName">B2R</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/Rout2/R2B">
+      <obj_property name="ElementShortName">R2B</obj_property>
+      <obj_property name="ObjectShortName">R2B</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/test/clk">
       <obj_property name="ElementShortName">clk</obj_property>
@@ -111,37 +125,49 @@
       <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
       <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/RI/B2R">
-      <obj_property name="ElementShortName">B2R</obj_property>
-      <obj_property name="ObjectShortName">B2R</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/RI/R2B">
-      <obj_property name="ElementShortName">R2B</obj_property>
-      <obj_property name="ObjectShortName">R2B</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/RI/clk">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/RI/d">
-      <obj_property name="ElementShortName">d[15:0]</obj_property>
-      <obj_property name="ObjectShortName">d[15:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/RI/q">
-      <obj_property name="ElementShortName">q[15:0]</obj_property>
-      <obj_property name="ObjectShortName">q[15:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/RI/q_inside">
-      <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
-      <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/instruction">
       <obj_property name="ElementShortName">instruction[15:0]</obj_property>
       <obj_property name="ObjectShortName">instruction[15:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/R1/q_inside">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
       <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
+      <obj_property name="label">r1_inside</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/Rsrc1/q_inside">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
+      <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
+      <obj_property name="label">rsrc1_inside</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/Rsrc2/q_inside">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
+      <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
+      <obj_property name="label">rsrc2_inside</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/Rdest/q_inside">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
+      <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
+      <obj_property name="label">rdest_inside</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/do_decode_dest">
+      <obj_property name="ElementShortName">do_decode_dest</obj_property>
+      <obj_property name="ObjectShortName">do_decode_dest</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/dest_is_zero">
+      <obj_property name="ElementShortName">dest_is_zero</obj_property>
+      <obj_property name="ObjectShortName">dest_is_zero</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/test_Z">
+      <obj_property name="ElementShortName">test_Z</obj_property>
+      <obj_property name="ObjectShortName">test_Z</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/test_NZ">
+      <obj_property name="ElementShortName">test_NZ</obj_property>
+      <obj_property name="ObjectShortName">test_NZ</obj_property>
    </wvobject>
    <wvobject type="other" fp_name="/test/top_level_inst/all_7seg_fsm_inst/state">
       <obj_property name="ElementShortName">state</obj_property>
@@ -150,5 +176,13 @@
    <wvobject type="other" fp_name="/test/top_level_inst/all_7seg_fsm_inst/next_state">
       <obj_property name="ElementShortName">next_state</obj_property>
       <obj_property name="ObjectShortName">next_state</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test/an">
+      <obj_property name="ElementShortName">an[3:0]</obj_property>
+      <obj_property name="ObjectShortName">an[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/Rsrc1/q_inside">
+      <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
+      <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
    </wvobject>
 </wave_config>

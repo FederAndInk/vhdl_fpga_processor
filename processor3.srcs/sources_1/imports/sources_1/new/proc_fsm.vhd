@@ -115,6 +115,14 @@ begin
         src_res <= instr(7 downto 4);
         dest_res <= instr(3 downto 0);
         test_NZ_res <= '1';
+        when x"5" => -- MIZ
+        src_res <= x"F"; -- RI
+        dest_res <= instr(3 downto 0);
+        test_Z_res <= '1';
+        when x"6" => -- MINZ
+        src_res <= x"F"; -- RI
+        dest_res <= instr(3 downto 0);
+        test_NZ_res <= '1';
         when x"F" => -- pause
         COinc_res <= '0';
         when others =>

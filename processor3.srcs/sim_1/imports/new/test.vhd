@@ -54,7 +54,7 @@ architecture Behavioral of test is
   constant half_period : time := 50ns;
 
   signal btn : std_logic_vector (4 downto 0) := "00000";
-  signal sw : std_logic_vector (15 downto 0) := x"000a";
+  signal sw : std_logic_vector (15 downto 0) := x"0052";
 begin
   clk <= not clk after half_period;
   top_level_inst : top_level port map(
