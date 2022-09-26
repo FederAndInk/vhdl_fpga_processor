@@ -1,2 +1,18 @@
 memory_initialization_radix=16;
-memory_initialization_vector=0000 2529 0000 007A 1200 5008 6FF8;
+memory_initialization_vector=
+0000
+2011
+0019
+201A
+1500
+60AE
+001A
+1100
+20CE
+00B8
+1300
+00B8
+1700
+00B1
+202E
+F000;
