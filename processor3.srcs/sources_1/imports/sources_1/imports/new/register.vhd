@@ -41,22 +41,17 @@ entity reg is
 end reg;
 
 architecture Behavioral of reg is
+  signal r : std_logic_vector(15 downto 0) := x"0000";
 begin
-  process (clk, R2B, B2R)
-    variable r : std_logic_vector(15 downto 0) := x"0000";
+  process (clk)
   begin
     if rising_edge(clk) then
       if B2R = '1' then
-        r := d;
+        r <= d;
       end if;
     end if;
-
-    if R2B = '1' then -- tri-state
-      q <= r;
-    else
-      q <= "ZZZZZZZZZZZZZZZZ";
-    end if;
-
-    q_inside <= r;
   end process;
+  q <= r when R2B = '1' else
+    "ZZZZZZZZZZZZZZZZ";
+  q_inside <= r;
 end Behavioral;
