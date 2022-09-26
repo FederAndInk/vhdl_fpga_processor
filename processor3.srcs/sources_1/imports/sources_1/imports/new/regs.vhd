@@ -51,6 +51,16 @@ architecture Behavioral of regs is
       q_inside : out std_logic_vector (15 downto 0)
     );
   end component;
+  component RI_reg is
+    port (
+      B2R : in std_logic; -- bus to register
+      R2B : in std_logic; -- register to bus
+      clk : in std_logic;
+      d : in std_logic_vector (15 downto 0);
+      q : out std_logic_vector (15 downto 0);
+      q_inside : out std_logic_vector (15 downto 0)
+    );
+  end component;
 
   component inst_mem
     port (
@@ -241,7 +251,7 @@ begin
     (COInside + x"0001") when COinc = '1' else
     COInside;
 
-  RI : reg
+  RI : RI_reg
   port map(
     B2R => RILoad,
     R2B => R2B(15),

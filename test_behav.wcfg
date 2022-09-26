@@ -10,15 +10,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="83.851191666 ms"></ZoomStartTime>
-      <ZoomEndTime time="166.958341667 ms"></ZoomEndTime>
-      <Cursor1Time time="153.107150000 ms"></Cursor1Time>
+      <ZoomStartTime time="29,999,317.500 ns"></ZoomStartTime>
+      <ZoomEndTime time="30,000,136.501 ns"></ZoomEndTime>
+      <Cursor1Time time="30,000,000.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="146"></NameColumnWidth>
       <ValueColumnWidth column_width="60"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="31" />
+   <WVObjectSize size="33" />
    <wvobject type="array" fp_name="/test/led">
       <obj_property name="ElementShortName">led[15:0]</obj_property>
       <obj_property name="ObjectShortName">led[15:0]</obj_property>
@@ -142,5 +142,13 @@
    <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/R1/q_inside">
       <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
       <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/test/top_level_inst/all_7seg_fsm_inst/state">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/test/top_level_inst/all_7seg_fsm_inst/next_state">
+      <obj_property name="ElementShortName">next_state</obj_property>
+      <obj_property name="ObjectShortName">next_state</obj_property>
    </wvobject>
 </wave_config>

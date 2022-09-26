@@ -91,8 +91,12 @@ begin
         dest_res <= instr(3 downto 0);
         when x"1" => -- alu
         op_res <= instr(11 downto 8);
-        src_res <= x"0";
-        dest_res <= x"B";
+        src_res <= x"0"; -- nothing
+        dest_res <= x"B"; -- Rdest
+        when x"2" => -- MVI
+        op_res <= instr(11 downto 8);
+        src_res <= x"F"; -- RI
+        dest_res <= instr(3 downto 0);
         when x"F" => -- pause
         COinc_res <= '0';
         when others =>
