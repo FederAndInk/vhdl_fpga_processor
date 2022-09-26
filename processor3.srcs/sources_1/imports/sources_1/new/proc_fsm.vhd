@@ -41,7 +41,9 @@ entity proc_fsm is
     instr : in std_logic_vector(15 downto 0);
     src : out std_logic_vector(3 downto 0);
     dest : out std_logic_vector(3 downto 0);
-    op : out std_logic_vector(3 downto 0)
+    op : out std_logic_vector(3 downto 0);
+
+    test_Z, test_NZ, E_alu : out std_logic
   );
 end proc_fsm;
 
@@ -57,6 +59,7 @@ architecture Behavioral of proc_fsm is
   signal src_res : std_logic_vector(3 downto 0);
   signal dest_res : std_logic_vector(3 downto 0);
   signal op_res : std_logic_vector(3 downto 0);
+  signal test_Z_res, test_NZ_res, E_alu_res : std_logic := '0';
 begin
   SYNC_PROC : process (clk)
   begin
@@ -68,6 +71,9 @@ begin
       src <= src_res;
       dest <= dest_res;
       op <= op_res;
+      test_Z <= test_Z_res;
+      test_NZ <= test_NZ_res;
+      E_alu <= E_alu_res;
     end if;
   end process;
 
@@ -80,6 +86,9 @@ begin
     op_res <= x"0";
     src_res <= x"0";
     dest_res <= x"0";
+    test_Z_res <= '0';
+    test_NZ_res <= '0';
+    E_alu_res <= '0';
     case(state) is
       when st_load =>
       COinc_res <= '1';
@@ -93,10 +102,19 @@ begin
         op_res <= instr(11 downto 8);
         src_res <= x"0"; -- nothing
         dest_res <= x"B"; -- Rdest
+        -- E_alu <= '1';
         when x"2" => -- MVI
         op_res <= instr(11 downto 8);
         src_res <= x"F"; -- RI
         dest_res <= instr(3 downto 0);
+        when x"3" => -- MZ
+        src_res <= instr(7 downto 4);
+        dest_res <= instr(3 downto 0);
+        test_Z_res <= '1';
+        when x"4" => -- MNZ
+        src_res <= instr(7 downto 4);
+        dest_res <= instr(3 downto 0);
+        test_NZ_res <= '1';
         when x"F" => -- pause
         COinc_res <= '0';
         when others =>

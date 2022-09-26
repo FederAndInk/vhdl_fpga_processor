@@ -88,9 +88,14 @@ architecture Behavioral of regs is
       instr : in std_logic_vector(15 downto 0);
       src : out std_logic_vector(3 downto 0);
       dest : out std_logic_vector(3 downto 0);
-      op : out std_logic_vector(3 downto 0)
+      op : out std_logic_vector(3 downto 0);
+
+      test_Z, test_NZ, E_alu : out std_logic
     );
   end component;
+
+  signal test_Z, test_NZ, E_alu : std_logic;
+  signal do_decode_dest : std_logic;
 
   signal COinc : std_logic;
   signal RILoad : std_logic;
@@ -116,6 +121,8 @@ architecture Behavioral of regs is
     );
   end component;
   signal destd : std_logic_vector (15 downto 0);
+  signal destInside : std_logic_vector (15 downto 0);
+  signal dest_is_zero : std_logic := '0';
   signal src1q : std_logic_vector (15 downto 0);
   signal src2q : std_logic_vector (15 downto 0);
   signal op : std_logic_vector(3 downto 0);
@@ -217,8 +224,11 @@ begin
     clk => clk,
     d => destd,
     q => dbus,
-    q_inside => open
+    q_inside => destInside
   );
+  dest_is_zero <= '1' when destInside = x"0000" else
+    '0';
+
   RAM : reg
   port map(
     B2R => B2R(12),
@@ -271,7 +281,10 @@ begin
     instr => instruction,
     src => srcInst,
     dest => dstInst,
-    op => op
+    op => op,
+    test_Z => test_Z,
+    test_NZ => test_NZ,
+    E_alu => E_alu
   );
 
   ALU_inst : ALU
@@ -292,9 +305,11 @@ begin
   port map(
     instReg => dstInst,
     busReg => B2R,
-    E => '1'
+    E => do_decode_dest
   );
-
+  do_decode_dest <= (test_NZ and not dest_is_zero)
+    or (test_Z and dest_is_zero)
+    or not (test_Z or test_NZ);
   inst_mem_inst : inst_mem
   port map(
     a => COInside(7 downto 0),
