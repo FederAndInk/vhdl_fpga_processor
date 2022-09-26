@@ -63,7 +63,7 @@ architecture Behavioral of top_level is
       outp : out std_logic
     );
   end component;
-  signal btn_clean : std_logic_vector (4 downto 0);
+  signal btn_clean : std_logic_vector (4 downto 0) := "00000";
 
   component all_7seg_fsm is
     port (
@@ -101,7 +101,7 @@ begin
   btn_cleaner : for I in 0 to 4 generate
     btn_pulse_inst : btn_pulse
     port map(
-      clk => clk190,
+      clk => clk,
       inp => btn(I),
       E => E190,
       outp => btn_clean(I)
@@ -113,7 +113,7 @@ begin
     sw => sw,
     led => led,
     seg => seg_val,
-    btn_continue => btn(4),
+    btn_continue => btn_clean(4),
     clk => clk
   );
 

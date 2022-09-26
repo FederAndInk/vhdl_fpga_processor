@@ -39,7 +39,7 @@ entity btn_pulse is
 end btn_pulse;
 
 architecture Behavioral of btn_pulse is
-  signal Q0, Q1, Q2, Q3, Q4, Q5 : std_logic;
+  signal Q0, Q1, Q2, Q3, Q4, Q5 : std_logic := '0';
 begin
   detector : process (clk)
   begin
@@ -56,5 +56,5 @@ begin
 
     end if;
   end process; -- detector
-  outp <=  Q3 and Q4 and not Q5;
+  outp <= Q3 and Q4 and not Q5;
 end Behavioral;

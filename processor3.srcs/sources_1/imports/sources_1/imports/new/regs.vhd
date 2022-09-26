@@ -64,6 +64,7 @@ architecture Behavioral of regs is
 
   signal COd : std_logic_vector (15 downto 0);
   signal COInside : std_logic_vector (15 downto 0);
+  signal COLoad : std_logic;
 
   component proc_fsm is
     port (
@@ -71,6 +72,7 @@ architecture Behavioral of regs is
       continue : in std_logic;
 
       COinc : out std_logic;
+      COLoad : out std_logic;
       RILoad : out std_logic;
 
       instr : in std_logic_vector(15 downto 0);
@@ -227,7 +229,7 @@ begin
   );
   CO : reg
   port map(
-    B2R => '1',
+    B2R => COLoad,
     R2B => R2B(14),
     clk => clk,
     d => COd,
@@ -254,6 +256,7 @@ begin
     clk => clk,
     continue => btn_continue,
     COinc => COinc,
+    COLoad => COLoad,
     RILoad => RILoad,
     instr => instruction,
     src => srcInst,

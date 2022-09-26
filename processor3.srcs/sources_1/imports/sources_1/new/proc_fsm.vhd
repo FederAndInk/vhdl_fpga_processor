@@ -35,6 +35,7 @@ entity proc_fsm is
     continue : in std_logic;
 
     COinc : out std_logic;
+    COLoad : out std_logic;
     RILoad : out std_logic;
 
     instr : in std_logic_vector(15 downto 0);
@@ -49,6 +50,7 @@ architecture Behavioral of proc_fsm is
   signal state, next_state : state_t := st_load; -- initialize the fucking state or it doesn't work on the board
 
   signal COinc_res : std_logic;
+  signal COLoad_res : std_logic;
   signal RILoad_res : std_logic;
   signal B2R7seg_res : std_logic;
   signal RI2B_res : std_logic;
@@ -61,6 +63,7 @@ begin
     if (clk'event and clk = '1') then
       state <= next_state;
       COinc <= COinc_res;
+      COLoad <= COLoad_res;
       RILoad <= RILoad_res;
       src <= src_res;
       dest <= dest_res;
@@ -72,6 +75,7 @@ begin
   OUTPUT_DECODE : process (state, instr)
   begin
     COinc_res <= '0';
+    COLoad_res <= '0';
     RILoad_res <= '0';
     op_res <= x"0";
     src_res <= x"0";
@@ -79,6 +83,7 @@ begin
     case(state) is
       when st_load =>
       COinc_res <= '1';
+      COLoad_res <= '1';
       RILoad_res <= '1';
       case(instr(15 downto 12)) is
         when x"0" => -- move
@@ -88,6 +93,8 @@ begin
         op_res <= instr(11 downto 8);
         src_res <= x"0";
         dest_res <= x"B";
+        when x"F" => -- pause
+        COinc_res <= '0';
         when others =>
       end case;
       when others =>

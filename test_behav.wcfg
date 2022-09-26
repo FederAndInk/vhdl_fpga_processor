@@ -10,15 +10,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,000.000 ns"></ZoomEndTime>
-      <Cursor1Time time="416.357 ns"></Cursor1Time>
+      <ZoomStartTime time="83.851191666 ms"></ZoomStartTime>
+      <ZoomEndTime time="166.958341667 ms"></ZoomEndTime>
+      <Cursor1Time time="153.107150000 ms"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="151"></NameColumnWidth>
-      <ValueColumnWidth column_width="67"></ValueColumnWidth>
+      <NameColumnWidth column_width="146"></NameColumnWidth>
+      <ValueColumnWidth column_width="60"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="26" />
+   <WVObjectSize size="31" />
    <wvobject type="array" fp_name="/test/led">
       <obj_property name="ElementShortName">led[15:0]</obj_property>
       <obj_property name="ObjectShortName">led[15:0]</obj_property>
@@ -40,8 +40,12 @@
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/test/btn">
-      <obj_property name="ElementShortName">btn[3:0]</obj_property>
-      <obj_property name="ObjectShortName">btn[3:0]</obj_property>
+      <obj_property name="ElementShortName">btn[4:0]</obj_property>
+      <obj_property name="ObjectShortName">btn[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test/top_level_inst/btn_clean">
+      <obj_property name="ElementShortName">btn_clean[4:0]</obj_property>
+      <obj_property name="ObjectShortName">btn_clean[4:0]</obj_property>
    </wvobject>
    <wvobject type="other" fp_name="/test/half_period">
       <obj_property name="ElementShortName">half_period</obj_property>
@@ -82,6 +86,22 @@
    <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/CO/d">
       <obj_property name="ElementShortName">d[15:0]</obj_property>
       <obj_property name="ObjectShortName">d[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/test/top_level_inst/regs_inst/proc_fsm_inst/state">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/test/top_level_inst/regs_inst/proc_fsm_inst/next_state">
+      <obj_property name="ElementShortName">next_state</obj_property>
+      <obj_property name="ObjectShortName">next_state</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/COinc">
+      <obj_property name="ElementShortName">COinc</obj_property>
+      <obj_property name="ObjectShortName">COinc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/proc_fsm_inst/COinc_res">
+      <obj_property name="ElementShortName">COinc_res</obj_property>
+      <obj_property name="ObjectShortName">COinc_res</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/CO/q">
       <obj_property name="ElementShortName">q[15:0]</obj_property>
