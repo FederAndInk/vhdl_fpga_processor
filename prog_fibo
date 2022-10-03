@@ -1,0 +1,11 @@
+-- from firefox
+BEGIN
+MVI 00 Rsrc1
+MVI 01 Rsrc2
+ADD
+MOV Rsrc2 Rsrc1
+MOV Rdest Rsrc2
+MOV Rdest R7seg
+MVI 03 CO
+PAUSE
+END
