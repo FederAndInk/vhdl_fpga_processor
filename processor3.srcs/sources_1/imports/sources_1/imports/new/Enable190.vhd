@@ -25,7 +25,7 @@ begin
       -- clkin2 <= '0';
     elsif clk'event and clk = '1' then
       q := q + 1;
-      if Q(17) = '1' and clkin = '0' then
+      if Q(19) = '1' and clkin = '0' then
         E190 <= '1';
       else
         E190 <= '0';
@@ -36,7 +36,7 @@ begin
       --   E762 <= '0';
       -- end if;
     end if;
-    clkin <= Q(17);
+    clkin <= Q(19);
     -- clkin2 <= Q(16);
   end process;
   clk190 <= clkin;

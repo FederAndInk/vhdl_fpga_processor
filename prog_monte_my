@@ -1,0 +1,67 @@
+-- Monte Carlo
+begin
+
+-- R4 = FFFF -> nb total points
+mvi FF Rsrc1
+mvi FF Rsrc2
+concat
+mov Rdest R4
+
+-- R5 = 3F01
+mvi 3F Rsrc1
+mvi 01 Rsrc2
+concat
+mov Rdest R5
+
+random
+mov Rdest Rsrc1
+-- mask 7 lower bits
+mvi 7F Rsrc2
+and
+-- R1 : x
+mov Rdest R1
+
+mvi 07 Rsrc2
+shr
+-- R2 : y
+mov Rdest R2
+
+mov R1 Rsrc1
+mov R1 Rsrc2
+-- R1 : x^2
+mul7
+mov Rdest R1
+
+mov R2 Rsrc1
+mov R2 Rsrc2
+-- R2 : y^2
+mul7
+mov Rdest R2
+
+mov R1 Rsrc1
+mov R2 Rsrc2
+add
+-- R1 : x^2 + y^2
+mov Rdest R1
+
+-- x^2 + y^2 <= 3F01
+mov R5 Rsrc2
+mov R1 Rsrc1
+leq
+
+-- add 1 or 0 to the inside counter
+mov Rdest Rsrc1
+mov R3 Rsrc2
+add
+mov Rdest R3
+
+-- decrement R4 (nb points)
+mov R4 Rsrc1
+mvi 01 Rsrc2
+sub
+-- loop if R4 != 0
+minz 09 CO
+mov Rdest R4
+mov R3 R7seg
+pause
+end

@@ -1,3 +1,4 @@
+-- from firefox
 BEGIN
 MVI 01 R1
 MOV R1 Rsrc1

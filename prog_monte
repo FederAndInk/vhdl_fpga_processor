@@ -1,0 +1,53 @@
+-- Monte Carlo
+begin
+-- 3F01 dans R2
+mvi 01 Rsrc1
+mvi 3f Rsrc2
+concat
+mov Rdest R2
+--8000 R3
+mvi 00 Rsrc1
+mvi 80 Rsrc2
+concat
+mov Rdest R3
+-- 00 R4 nombre de points dans le cercle
+mvi 00 R4
+-- 01 init compteur de boucle à 255 tirages
+mvi FF R1
+--
+random
+mvi 7F Rsrc1
+mov Rdest Rsrc2
+and
+mov Rdest Rsrc1
+mov Rdest Rsrc2
+mul7
+mov Rdest R5
+random
+mvi 7F Rsrc1
+mov Rdest Rsrc2
+and
+mov Rdest Rsrc1
+mov Rdest Rsrc2
+mul7
+mov Rdest Rsrc1
+mov R5 Rsrc2
+add
+mov R2 Rsrc1
+mov Rdest Rsrc2
+SUB
+mov Rdest Rsrc1
+mov R3 Rsrc2
+and
+miNZ 00 Rsrc1
+miZ 01 Rsrc1
+mov R4 Rsrc2
+add
+mov Rdest R4
+mov R1 Rsrc1
+dec
+miNZ 0B CO
+mov Rdest R1
+mov R4 R7seg
+pause
+end

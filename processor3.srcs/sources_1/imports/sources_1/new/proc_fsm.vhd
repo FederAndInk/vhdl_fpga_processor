@@ -102,7 +102,7 @@ begin
         op_res <= instr(11 downto 8);
         src_res <= x"0"; -- nothing
         dest_res <= x"B"; -- Rdest
-        -- E_alu <= '1';
+        E_alu_res <= '1';
         when x"2" => -- MVI
         op_res <= instr(11 downto 8);
         src_res <= x"F"; -- RI

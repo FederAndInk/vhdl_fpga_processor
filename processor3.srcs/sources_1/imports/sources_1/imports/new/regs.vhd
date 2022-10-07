@@ -114,10 +114,12 @@ architecture Behavioral of regs is
 
   component ALU is
     port (
+      E : in std_logic;
       a : in std_logic_vector(15 downto 0);
       b : in std_logic_vector(15 downto 0);
       op : in std_logic_vector(3 downto 0);
-      dst : out std_logic_vector(15 downto 0)
+      dst : out std_logic_vector(15 downto 0);
+      clk : in std_logic
     );
   end component;
   signal destd : std_logic_vector (15 downto 0);
@@ -289,10 +291,12 @@ begin
 
   ALU_inst : ALU
   port map(
+    E => E_alu,
     a => src1q,
     b => src2q,
     op => op,
-    dst => destd
+    dst => destd,
+    clk => clk
   );
 
   inst2regdecoder_src : inst2regdecoder

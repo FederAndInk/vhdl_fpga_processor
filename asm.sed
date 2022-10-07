@@ -1,6 +1,7 @@
 s/\(.*\)/\U\1/
 s/BEGIN/memory_initialization_radix=16; \n memory_initialization_vector= \n 0000/
 /--/d
+/^$/d
 s/NOP/0000/
 s/PAUSE/F000/
 s/MVI/2/
@@ -14,6 +15,10 @@ s/SUB/1200/
 s/ADDC/1300/
 s/ADD/1100/
 s/INV/1400/
+s/RANDOM/1B00/
+s/MUL7/1C00/
+s/SHR/1D00/
+s/LEQ/1E00/
 s/AND/1500/
 s/OR/1600/
 s/INC/1700/
