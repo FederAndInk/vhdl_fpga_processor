@@ -10,15 +10,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="99,999,184.793 ns"></ZoomStartTime>
-      <ZoomEndTime time="100,001,363.042 ns"></ZoomEndTime>
-      <Cursor1Time time="100,000,731.323 ns"></Cursor1Time>
+      <ZoomStartTime time="3,103.333 ns"></ZoomStartTime>
+      <ZoomEndTime time="4,959.334 ns"></ZoomEndTime>
+      <Cursor1Time time="3,750.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="134"></NameColumnWidth>
+      <NameColumnWidth column_width="130"></NameColumnWidth>
       <ValueColumnWidth column_width="60"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="42" />
+   <WVObjectSize size="45" />
    <wvobject type="array" fp_name="/test/led">
       <obj_property name="ElementShortName">led[15:0]</obj_property>
       <obj_property name="ObjectShortName">led[15:0]</obj_property>
@@ -117,17 +117,21 @@
       <obj_property name="ElementShortName">COinc_res</obj_property>
       <obj_property name="ObjectShortName">COinc_res</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/CO/q">
-      <obj_property name="ElementShortName">q[15:0]</obj_property>
-      <obj_property name="ObjectShortName">q[15:0]</obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/CO/q_inside">
+      <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
       <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
+      <obj_property name="label">CO</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/instruction">
       <obj_property name="ElementShortName">instruction[15:0]</obj_property>
       <obj_property name="ObjectShortName">instruction[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/RI/q_inside">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
+      <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
+      <obj_property name="label">RI</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/ALU_inst/random_inst/E">
       <obj_property name="DisplayName">label</obj_property>
@@ -140,6 +144,14 @@
       <obj_property name="ElementShortName">val[15:0]</obj_property>
       <obj_property name="ObjectShortName">val[15:0]</obj_property>
       <obj_property name="label">rand</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/proc_fsm_inst/src">
+      <obj_property name="ElementShortName">src[3:0]</obj_property>
+      <obj_property name="ObjectShortName">src[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/proc_fsm_inst/dest">
+      <obj_property name="ElementShortName">dest[3:0]</obj_property>
+      <obj_property name="ObjectShortName">dest[3:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/R1/q_inside">
       <obj_property name="DisplayName">label</obj_property>
@@ -188,6 +200,12 @@
       <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
       <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
       <obj_property name="label">rdest_inside</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/test/top_level_inst/regs_inst/Rout2/q_inside">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">q_inside[15:0]</obj_property>
+      <obj_property name="ObjectShortName">q_inside[15:0]</obj_property>
+      <obj_property name="label">Rout2</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/test/top_level_inst/regs_inst/do_decode_dest">
       <obj_property name="ElementShortName">do_decode_dest</obj_property>

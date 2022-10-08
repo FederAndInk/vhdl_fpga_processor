@@ -28,7 +28,8 @@ architecture arch of ALU is
   signal rand : std_logic_vector(15 downto 0);
   signal E_rand : std_logic;
 begin
-  E_rand <= '1' when E = '1' and op = "1011" else '0';
+  E_rand <= '1' when E = '1' and (op = "1011" or op = "1111") else
+    '0';
   random_inst : random
   port map(
     E => E_rand,
@@ -70,6 +71,9 @@ begin
         dst <= std_logic_vector(shr(unsigned(a), unsigned(b)));
       when "1110" => -- less eq
         dst <= x"0001" when a <= b else
+          x"0000";
+      when "1111" => -- PIXY
+        dst <= x"0001" when (("00" & (rand(6 downto 0) * rand(6 downto 0))) + ("00" & (rand(13 downto 7) * rand(13 downto 7)))) <= x"3F01" else
           x"0000";
       when others =>
         dst <= x"0000";
