@@ -73,8 +73,8 @@ begin
         dst <= x"0001" when a <= b else
           x"0000";
       when "1111" => -- PIXY
-        dst <= x"0001" when (("00" & (rand(6 downto 0) * rand(6 downto 0))) + ("00" & (rand(13 downto 7) * rand(13 downto 7)))) <= x"3F01" else
-          x"0000";
+        dst <= (a + x"0001") when (("00" & (rand(6 downto 0) * rand(6 downto 0))) + ("00" & (rand(13 downto 7) * rand(13 downto 7)))) <= x"3F01" else
+          a;
       when others =>
         dst <= x"0000";
     end case;
