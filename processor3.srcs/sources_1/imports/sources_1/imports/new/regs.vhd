@@ -31,6 +31,10 @@ use IEEE.NUMERIC_STD.all;
 --use UNISIM.VComponents.all;
 
 entity regs is
+  generic (
+    NPROC : integer;
+    PROC_NO : integer
+  );
   port (
     sw : in std_logic_vector (15 downto 0);
     led : out std_logic_vector (15 downto 0);
@@ -113,6 +117,10 @@ architecture Behavioral of regs is
   end component;
 
   component ALU is
+    generic (
+      NPROC : integer;
+      PROC_NO : integer
+    );
     port (
       E : in std_logic;
       a : in std_logic_vector(15 downto 0);
@@ -290,6 +298,10 @@ begin
   );
 
   ALU_inst : ALU
+  generic map(
+    NPROC => NPROC,
+    PROC_NO => PROC_NO
+  )
   port map(
     E => E_alu,
     a => src1q,

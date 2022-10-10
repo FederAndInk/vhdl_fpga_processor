@@ -18,7 +18,9 @@
 -- 
 ----------------------------------------------------------------------------------
 library IEEE;
-use IEEE.STD_LOGIC_1164.all;
+use IEEE.std_logic_1164.all;
+use IEEE.std_logic_unsigned.all;
+use IEEE.std_logic_arith.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -76,6 +78,10 @@ architecture Behavioral of top_level is
   end component;
 
   component regs is
+    generic (
+      NPROC : integer;
+      PROC_NO : integer
+    );
     port (
       sw : in std_logic_vector (15 downto 0);
       led : out std_logic_vector (15 downto 0);
@@ -86,6 +92,11 @@ architecture Behavioral of top_level is
   end component;
 
   signal seg_val : std_logic_vector (15 downto 0);
+
+  constant NPROC : integer := 2;
+
+  type arrayNPROC is array (0 to NPROC) of std_logic_vector(15 downto 0);
+  signal segs : arrayNPROC := (others => x"0000");
 
 begin
   clkdiv_inst : clkdiv
@@ -108,14 +119,24 @@ begin
     );
   end generate; -- btn_cleaner
 
-  regs_inst : regs
-  port map(
-    sw => sw,
-    led => led,
-    seg => seg_val,
-    btn_continue => btn_clean(4),
-    clk => clk
-  );
+  procs : for I in 0 to NPROC - 1 generate
+    regs_inst : regs
+    generic map(
+      NPROC => NPROC,
+      PROC_NO => I
+    )
+    port map(
+      sw => sw,
+      led => open,
+      seg => segs(I),
+      btn_continue => btn_clean(4),
+      clk => clk
+    );
+  end generate; -- procs
+
+  -- addss : for I in 0 to NPROC / 2 - 1 generate
+  seg_val <= segs(0) + segs(1);
+  -- end generate addss;
 
   all_7seg_fsm_inst : all_7seg_fsm
   port map(

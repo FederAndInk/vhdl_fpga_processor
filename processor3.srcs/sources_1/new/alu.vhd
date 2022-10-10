@@ -5,6 +5,10 @@ use IEEE.std_logic_unsigned.all;
 use IEEE.std_logic_arith.all;
 
 entity ALU is
+  generic (
+    NPROC : integer;
+    PROC_NO : integer
+  );
   port (
     E : in std_logic;
     a : in std_logic_vector(15 downto 0);
@@ -17,6 +21,10 @@ end ALU;
 
 architecture arch of ALU is
   component random is
+    generic (
+      NPROC : integer;
+      PROC_NO : integer
+    );
     port (
       E : in std_logic;
       R : out std_logic_vector(15 downto 0);
@@ -31,6 +39,10 @@ begin
   E_rand <= '1' when E = '1' and (op = "1011" or op = "1111") else
     '0';
   random_inst : random
+  generic map(
+    NPROC => NPROC,
+    PROC_NO => PROC_NO
+  )
   port map(
     E => E_rand,
     R => rand,

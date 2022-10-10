@@ -32,6 +32,10 @@ use IEEE.std_logic_arith.all;
 --use UNISIM.VComponents.all;
 
 entity random is
+  generic (
+    NPROC : integer;
+    PROC_NO : integer
+  );
   port (
     E : in std_logic;
     R : out std_logic_vector(15 downto 0);
@@ -41,18 +45,21 @@ entity random is
 end random;
 
 architecture Behavioral of random is
-  signal val : std_logic_vector(15 downto 0) := x"8000";
+  type array8 is array (0 to 7) of std_logic_vector(15 downto 0);
+  constant rand_init_array : array8 := (x"8000", x"4000", x"2000", x"1000", x"8800", x"4400", x"2200", x"1100");
 begin
-  R <= val;
-
   proc_name : process (clk, rst)
+    variable val : std_logic_vector(15 downto 0) := rand_init_array(PROC_NO);
   begin
     if rst = '1' then
-      val <= x"8000";
+      val := rand_init_array(PROC_NO);
     elsif rising_edge(clk) then
       if E = '1' then
-        val <= (val(0) xor val(1) xor val(3) xor val(12)) & val(15 downto 1);
+        for i in 0 to NPROC - 1 loop
+          val := (val(0) xor val(1) xor val(3) xor val(12)) & val(15 downto 1);
+        end loop;
       end if;
     end if;
+    R <= val;
   end process proc_name;
 end Behavioral;
