@@ -1,0 +1,27 @@
+-- Monte Carlo
+begin
+
+-- R4 = 4000 -> nb total points: 1 0000 / 4
+mvi 0B Rsrc1
+mvi A3 Rsrc2
+concat
+mov Rdest R4
+
+-- add 1 or 0 to the inside counter with PIXY
+mov R3 Rsrc1
+PIXY
+mov Rdest R3
+
+
+-- decrement R4 (nb points)
+mov R4 Rsrc1
+mvi 01 Rsrc2
+sub
+-- loop if R4 != 0
+minz 05 CO
+-- executed before the jump:
+mov Rdest R4
+
+mov R3 R7seg
+pause
+end
