@@ -45,8 +45,11 @@ entity random is
 end random;
 
 architecture Behavioral of random is
-  type array8 is array (0 to 7) of std_logic_vector(15 downto 0);
-  constant rand_init_array : array8 := (x"8000", x"4000", x"2000", x"1000", x"8800", x"4400", x"2200", x"1100");
+  type array8 is array (0 to 31) of std_logic_vector(15 downto 0);
+  constant rand_init_array : array8 := (x"8000", x"4000", x"2000", x"1000", x"8800", x"4400", x"2200", x"1100",
+  x"8880", x"4440", x"2220", x"1110", x"8888", x"c444", x"6222", x"b111",
+  x"5888", x"2c44", x"1622", x"0b11", x"8588", x"c2c4", x"6162", x"b0b1",
+  x"5858", x"2c2c", x"9616", x"4b0b", x"a585", x"d2c2", x"6961", x"b4b0");
 begin
   proc_name : process (clk, rst)
     variable val : std_logic_vector(15 downto 0) := rand_init_array(PROC_NO);

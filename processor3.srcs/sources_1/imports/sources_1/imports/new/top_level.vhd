@@ -93,7 +93,7 @@ architecture Behavioral of top_level is
 
   signal seg_val : std_logic_vector (15 downto 0);
 
-  constant NPROC : integer := 2;
+  constant NPROC : integer := 32;
 
   type arrayNPROC is array (0 to NPROC) of std_logic_vector(15 downto 0);
   signal segs : arrayNPROC := (others => x"0000");
@@ -135,7 +135,7 @@ begin
   end generate; -- procs
 
   -- addss : for I in 0 to NPROC / 2 - 1 generate
-  seg_val <= segs(0) + segs(1);
+  seg_val <= segs(0) + segs(1) + segs(2) + segs(3) + segs(4) + segs(5) + segs(6) + segs(7) + segs(8) + segs(9) + segs(10) + segs(11) + segs(12) + segs(13) + segs(14) + segs(15) + segs(16) + segs(17) + segs(18) + segs(19) + segs(20) + segs(21) + segs(22) + segs(23) + segs(24) + segs(25) + segs(26) + segs(27) + segs(28) + segs(29) + segs(30) + segs(31);
   -- end generate addss;
 
   all_7seg_fsm_inst : all_7seg_fsm
