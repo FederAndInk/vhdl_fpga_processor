@@ -6,3 +6,6 @@
 !test_behav.wcfg
 !asm.sed
 !prog*
+!README.md
+!img/**
+!img
